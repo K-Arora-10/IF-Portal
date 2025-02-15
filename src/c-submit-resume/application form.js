@@ -125,6 +125,23 @@ const ApplicationForm = () => {
                         </select>
                     </div>
                 </div>
+                <div>
+                    <label htmlFor="companyApplyingFor" className="block text-lg font-medium text-gray-200 mb-2">
+                        Select Timing
+                    </label>
+                    <select
+                        id="companyApplyingFor"
+                        required
+                        className="w-full p-4 border border-gray-400 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-500 text-lg"
+                        value={formData.companyApplyingFor}
+                        onChange={(e) => setFormData({ ...formData, companyApplyingFor: e.target.value })}
+                    >
+                        <option value="">Select Time</option>
+                        <option value="Google">10:11</option>
+                        <option value="Microsoft">11:12</option>
+                        <option value="Amazon">12:01</option>
+                    </select>
+                </div>
 
                 {/* Resume Link */}
                 <div>

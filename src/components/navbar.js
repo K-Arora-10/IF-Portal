@@ -6,7 +6,7 @@ import ifsmall from '../Photos/IFsmall.png';
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
-    
+
     const leftLinks = [
         { name: 'Home', path: '/' },
 
@@ -16,8 +16,8 @@ const Navbar = () => {
     ];
 
     const rightLinks = [
-        { name: 'Sponsors', path: '/sponsors' },
-        { name: 'Speakers', path: '/speaker' },
+        { name: 'Company Dashboard', path: '/company' },
+        // { name: 'Speakers', path: '/speaker' },
         { name: 'Contact us', path: '/contactus' },
     ];
 
