@@ -1,122 +1,141 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
-import TVClogo from '../Photos/TVClogo.png';
-import ifsmall from '../Photos/IFsmall.png';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Login from "./Login";
+import Signup from "./Signup";
+
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+  let navigate = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
-    const leftLinks = [
-        { name: 'Home', path: '/' },
+  return (
+    <>
+      <nav className="bg-gray-900 text-white shadow-lg">
+        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+          <Link className="text-2xl font-bold" to="/">
+            IF Portal
+          </Link>
+          <div className="hidden lg:flex items-center space-x-6">
+            <Link className="hover:text-gray-300" to="/">
+              Home
+            </Link>
 
-        { name: 'Submitted Resume', path: '/submit-resume' },
-        { name: 'About Us', path: '/agenda' },
-
-    ];
-
-    const rightLinks = [
-        { name: 'Company Dashboard', path: '/company' },
-        // { name: 'Speakers', path: '/speaker' },
-        { name: 'Contact us', path: '/contactus' },
-    ];
-
-
-    return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-blue-900/70 to-blue-900/0 backdrop-blur-sm text-white shadow-md">
-            <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
-
-                {/* Navbar Container */}
-                <div className="flex justify-between items-center h-20 sm:h-24">
-
-                    {/* Register Button (Left in Mobile) */}
-                    <div className="sm:hidden">
-                        <Link
-                            to="/register"
-                            className="text-white bg-cyan-600/80 hover:bg-cyan-500/90 font-medium py-2 px-4 text-lg rounded-lg transition-colors"
-                        >
-                            Register
-                        </Link>
-                    </div>
-
-                    {/* Centered Logo */}
-                    <div className="flex-1 flex justify-center">
-                        <img src={TVClogo} alt="Logo" className="h-16 w-auto sm:h-20" />
-                    </div>
-
-                    {/* Mobile menu button (Right) */}
-                    <div className="sm:hidden">
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className="text-white p-2"
-                        >
-                            {isOpen ? <X size={28} /> : <Menu size={28} />}
-                        </button>
-                    </div>
-
-                    {/* Desktop Navbar Links (Centered) */}
-                    <div className="hidden sm:flex items-center flex-grow justify-center gap-x-12">
-                        {leftLinks.map(({ name, path }) => (
-                            <Link
-                                key={name}
-                                to={path}
-                                className="text-gray-200 hover:text-white font-medium text-lg transition-colors"
-                            >
-                                {name}
-                            </Link>
-                        ))}
-                        <img src={ifsmall} alt="Logo" className="h-20 w-auto" />
-                        {rightLinks.map(({ name, path }) => (
-                            <Link
-                                key={name}
-                                to={path}
-                                className="text-gray-200 hover:text-white font-medium text-lg transition-colors"
-                            >
-                                {name}
-                            </Link>
-                        ))}
-                    </div>
-
-                    {/* Register Button (Desktop - Right) */}
-                    <div className="hidden sm:block">
-                        <Link
-                            to="/register"
-                            className="text-white bg-cyan-600/80 hover:bg-cyan-500/90 font-medium py-3 px-8 text-lg rounded-lg transition-colors"
-                        >
-                            Register
-                        </Link>
-                    </div>
-
+            {localStorage.getItem("token") && (
+              <div className="relative group">
+                <button className="hover:text-gray-300">Dashboard</button>
+                <div className="hidden group-hover:block absolute bg-white text-gray-900 shadow-md rounded-md mt-2">
+                  <ul className="py-2">
+                    <li>
+                      <Link
+                        to="/form"
+                        className="block px-4 py-2 hover:bg-gray-100"
+                      >
+                        Application Form
+                      </Link>
+                    </li>
+                    <li>
+                      <hr className="border-gray-300" />
+                    </li>
+                    <li>
+                      <Link
+                        to="/submittedForm"
+                        className="block px-4 py-2 hover:bg-gray-100"
+                      >
+                        Internships Applied
+                      </Link>
+                    </li>
+                  </ul>
                 </div>
-            </div>
-
-            {/* Mobile menu */}
-            {isOpen && (
-                <div className="sm:hidden bg-blue-900/90 backdrop-blur-sm border-t border-gray-700/30">
-                    <div className="px-4 pt-3 pb-4 space-y-2">
-                        {[...leftLinks, ...rightLinks].map(({ name, path }) => (
-                            <Link
-                                key={name}
-                                to={path}
-                                className="block px-4 py-3 text-gray-200 hover:bg-blue-800/70 hover:text-white rounded-md transition-colors text-lg"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                {name}
-                            </Link>
-                        ))}
-                        {/* Register Button in Mobile View */}
-                        <Link
-                            to="/register"
-                            className="block px-4 py-3 text-white bg-cyan-600/80 hover:bg-cyan-500/90 rounded-md transition-colors text-lg"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            Register
-                        </Link>
-                    </div>
-                </div>
+              </div>
             )}
-        </nav>
-    );
+
+            {!localStorage.getItem("token") ? (
+              <div className="flex space-x-2">
+                <button
+                  type="button"
+                  className="bg-gray-100 text-gray-900 px-4 py-2 rounded-md"
+                  onClick={() => setIsSignupModalOpen(true)}
+                >
+                  Sign Up
+                </button>
+
+                <button
+                  type="button"
+                  className="bg-gray-100 text-gray-900 px-4 py-2 rounded-md"
+                  onClick={() => setIsLoginModalOpen(true)}
+                >
+                  Login
+                </button>
+
+                <Link to="/companyLogin">
+                  <button
+                    type="button"
+                    className="bg-gray-100 text-gray-900 px-4 py-2 rounded-md"
+                  >
+                    Company Login
+                  </button>
+                </Link>
+              </div>
+            ) : (
+              <button
+                onClick={handleLogout}
+                type="button"
+                className="bg-gray-100 text-gray-900 px-4 py-2 rounded-md"
+              >
+                Logout
+              </button>
+            )}
+          </div>
+        </div>
+      </nav>
+
+      {/* Login Modal */}
+      {isLoginModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg w-96">
+            <div className="p-4 border-b">
+              <h1 className="text-lg font-semibold">Login</h1>
+              <button
+                className="text-gray-500 hover:text-gray-700 float-right"
+                onClick={() => setIsLoginModalOpen(false)}
+              >
+                Close
+              </button>
+            </div>
+            <div className="p-4">
+              <Login />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Sign Up Modal */}
+      {isSignupModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg w-96">
+            <div className="p-4 border-b">
+              <h1 className="text-lg font-semibold">Sign Up</h1>
+              <button
+                className="text-gray-500 hover:text-gray-700 float-right"
+                onClick={() => setIsSignupModalOpen(false)}
+              >
+                Close
+              </button>
+            </div>
+            <div className="p-4">
+              <Signup />
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default Navbar;

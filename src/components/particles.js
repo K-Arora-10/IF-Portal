@@ -5,7 +5,7 @@ import { Particles } from "./ui/particles-ui";
 import ifblack from "../Photos/IF black (1).png";
 import ifwhite from "../Photos/IF White (1).png";
 import Footer from "./footer";
-import Navbar from "./navbar";
+import Navbar from "./Navbar";
 import Button from "./button";
 export function ParticlesDemo() {
     const navigate = useNavigate();

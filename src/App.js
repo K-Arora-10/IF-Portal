@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { ParticlesDemo } from "./components/particles";
-import Navbar from "./components/navbar";
 import PageResume from "./c-Submitted-resume/page-resume";
 import Submit from "./c-submit-resume/page-submit";
 import LoginSignup from "./login-signup/login";
@@ -26,7 +25,7 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
+        {/* <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} /> */}
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<ParticlesDemo />} />

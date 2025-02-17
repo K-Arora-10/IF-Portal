@@ -64,7 +64,67 @@ const CompanyDashboard = () => {
                     duration: "Jan 2023 - Present"
                 }
             ]
-        }
+        },
+        {
+            id: 3,
+            name: "Jane Smith",
+            rollNo: "2021EC015",
+            branch: "Electronics",
+            year: "4th",
+            role: "Data Scientist",
+            status: "reviewed",
+            email: "jane.smith@example.com",
+            phone: "+1234567891",
+            skills: ["Python", "ML", "SQL"],
+            resumeLink: "#",
+            experience: [
+                {
+                    title: "Research Assistant",
+                    company: "University Lab",
+                    duration: "Jan 2023 - Present"
+                }
+            ]
+        },
+        {
+            id: 4,
+            name: "Jane Smith",
+            rollNo: "2021EC015",
+            branch: "Electronics",
+            year: "4th",
+            role: "Data Scientist",
+            status: "reviewed",
+            email: "jane.smith@example.com",
+            phone: "+1234567891",
+            skills: ["Python", "ML", "SQL"],
+            resumeLink: "#",
+            experience: [
+                {
+                    title: "Research Assistant",
+                    company: "University Lab",
+                    duration: "Jan 2023 - Present"
+                }
+            ]
+        },
+        {
+            id: 5,
+            name: "Jane Smith",
+            rollNo: "2021EC015",
+            branch: "Electronics",
+            year: "4th",
+            role: "Data Scientist",
+            status: "reviewed",
+            email: "jane.smith@example.com",
+            phone: "+1234567891",
+            skills: ["Python", "ML", "SQL"],
+            resumeLink: "#",
+            experience: [
+                {
+                    title: "Research Assistant",
+                    company: "University Lab",
+                    duration: "Jan 2023 - Present"
+                }
+            ]
+        },
     ];
 
     return (
