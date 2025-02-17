@@ -1,73 +1,82 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
-import { ParticlesDemo } from "./components/particles";
-import PageResume from "./c-Submitted-resume/page-resume";
-import Submit from "./c-submit-resume/page-submit";
-import LoginSignup from "./login-signup/login";
-import CompanyDashboard from "./company_dasboard/dashboard";
+// import logo from './logo.svg';
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Navbar from "./components/Navbar";
+import Form from "./components/Form";
+// import Home from "./components/Home";
+import { Routes, Route, BrowserRouter } from "react-router";
+import SubmittedForms from "./components/SubmittedForms";
+import CompanyForms from "./components/companyForms";
+import CompanyLogin from "./components/companyLogin";
+import CompanyHome from "./components/CompanyHome";
+import CompanyNavbar from "./components/CompanyNavbar";
+import ParticlesDemo from "./components/particles";
+// import { useEffect } from 'react';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // Protected Route Component
-  const ProtectedRoute = ({ children }) => {
-    if (!isAuthenticated) {
-      return <Navigate to="/login" />;
-    }
-    return children;
-  };
-
-  // Auth handler function
-  const handleAuthSuccess = () => {
-    setIsAuthenticated(true);
-  };
-
   return (
-    <BrowserRouter>
-      <div>
-        {/* <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} /> */}
+    <>
+      <BrowserRouter>
         <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<ParticlesDemo />} />
           <Route
-            path="/login"
+            path="/"
             element={
-              !isAuthenticated ? (
-                <LoginSignup onAuthSuccess={handleAuthSuccess} />
-              ) : (
-                <Navigate to="/" />
-              )
+              <>
+                <Navbar />
+                <ParticlesDemo />
+              </>
             }
           />
-
-          {/* Protected Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route
-            path="/submit-resume"
+            path="/form"
             element={
-              <ProtectedRoute>
-                <PageResume />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/submit-page"
-            element={
-              <ProtectedRoute>
-                <Submit />
-              </ProtectedRoute>
+              <>
+                <Navbar />
+                <Form />
+              </>
             }
           />
           <Route
-            path="/company"
+            path="/submittedForm"
             element={
-              <ProtectedRoute>
-                <CompanyDashboard />
-              </ProtectedRoute>
+              <>
+                <Navbar />
+                <SubmittedForms />
+              </>
+            }
+          />
+          <Route
+            path="/companyPage"
+            element={
+              <>
+                <CompanyNavbar />
+                <CompanyForms />
+              </>
+            }
+          />
+          <Route
+            path="/companyLogin"
+            element={
+              <>
+                <Navbar />
+                <CompanyLogin />
+              </>
+            }
+          />
+          <Route
+            path="/companyHome"
+            element={
+              <>
+                <CompanyNavbar />
+                <CompanyHome />
+              </>
             }
           />
         </Routes>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </>
   );
 }
 
