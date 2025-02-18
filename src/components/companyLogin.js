@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import { Building, Mail, Lock, LogIn } from "lucide-react";
 
 const CompanyLogin = () => {
   let navigate = useNavigate();
@@ -9,65 +9,104 @@ const CompanyLogin = () => {
     e.preventDefault();
 
     const formData = {
-      email: e.target.email.value, // access form input by "name" attribute
+      email: e.target.email.value,
       password: e.target.password.value,
     };
 
-    const response = await fetch("http://localhost:2000/authCompany/companyLogin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-    const json = await response.json();
-    
-    if (json.success) {
-      alert("Login Successful");
-      localStorage.setItem("token", json.authtoken);
-      navigate("/companyHome");
+    try {
+      const response = await fetch(
+        "http://localhost:2000/authCompany/companyLogin",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      const json = await response.json();
 
+      if (json.success) {
+        alert("Login Successful");
+        localStorage.setItem("token", json.authtoken);
+        navigate("/companyHome");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Login failed. Please try again.");
     }
   };
 
   return (
-    <>
-      <div className="container my-2">
-        <div className="card">
-          <div className="card-body">
-            <form onSubmit={handleSubmit}>
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label">
-                  Email address
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  name="email"
-                  aria-describedby="emailHelp"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="password" className="form-label">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  name="password"
-                />
-              </div>
-
-              <button type="submit" className="btn btn-primary">
-                Submit
-              </button>
-            </form>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
+        <div className="text-center mb-8">
+          <div className="flex justify-center mb-4">
+            <Building className="w-12 h-12 text-blue-600" />
           </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            Company Login
+          </h2>
+          <p className="text-sm text-gray-500">
+            Access your company dashboard and manage internships
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <label
+              htmlFor="email"
+              className="flex items-center gap-2 text-sm font-medium text-gray-700"
+            >
+              <Mail className="w-4 h-4" />
+              Company Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="company@example.com"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label
+              htmlFor="password"
+              className="flex items-center gap-2 text-sm font-medium text-gray-700"
+            >
+              <Lock className="w-4 h-4" />
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200"
+          >
+            <LogIn className="w-4 h-4" />
+            Sign in to Dashboard
+          </button>
+        </form>
+
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-500">
+            This portal is exclusively for registered companies.
+            <br />
+            Students should use the regular login.
+          </p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

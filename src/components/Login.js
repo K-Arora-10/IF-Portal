@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Mail, Lock, LogIn, X } from "lucide-react";
 
-const Login = () => {
-  let navigate = useNavigate();
+const Login = ({ onClose }) => {
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,65 +13,85 @@ const Login = () => {
       password: e.target.password.value,
     };
 
-    const response = await fetch("http://localhost:2000/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-    const json = await response.json();
+    try {
+      const response = await fetch("http://localhost:2000/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const json = await response.json();
 
-    if (json.success) {
-      alert("Login Successful");
-      localStorage.setItem("token", json.authtoken);
-      navigate("/");
+      if (json.success) {
+        alert("Login Successful");
+        localStorage.setItem("token", json.authtoken);
+        navigate("/");
+        if (onClose) onClose(); // Close the modal after successful login
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Login failed. Please try again.");
     }
   };
 
   return (
-    <div className="container mx-auto p-6">
-      <div className="max-w-md mx-auto bg-white shadow-md rounded-lg p-6">
-        <h2 className="text-2xl font-bold mb-4 text-gray-800">Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-700 font-medium mb-2"
-            >
-              Email address
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-gray-700 font-medium mb-2"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
-          >
-            Submit
-          </button>
-        </form>
+    <div className="relative bg-white rounded-lg">
+      {onClose && (
+        <button
+          onClick={onClose}
+          className="absolute right-4 top-4 p-1 hover:bg-gray-100 rounded-full transition-colors"
+        >
+          <X className="w-5 h-5 text-gray-500" />
+        </button>
+      )}
+      
+      <div className="text-center mb-8">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome back</h2>
+        <p className="text-sm text-gray-500">
+          Enter your credentials to access your account
+        </p>
       </div>
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="space-y-2">
+          <label htmlFor="email" className="flex items-center gap-2 text-sm font-medium text-gray-700">
+            <Mail className="w-4 h-4" />
+            Email address
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="name@example.com"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+            required
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="password" className="flex items-center gap-2 text-sm font-medium text-gray-700">
+            <Lock className="w-4 h-4" />
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200"
+        >
+          <LogIn className="w-4 h-4" />
+          Sign in
+        </button>
+      </form>
     </div>
   );
 };
