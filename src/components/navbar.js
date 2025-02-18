@@ -7,6 +7,7 @@ import Signup from "./Signup";
 const Navbar = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   let navigate = useNavigate();
 
   const handleLogout = () => {
@@ -21,6 +22,28 @@ const Navbar = () => {
           <Link className="text-2xl font-bold" to="/">
             IF Portal
           </Link>
+
+          <button
+            className="lg:hidden block text-gray-300 hover:text-white"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+
+          {/* Desktop Links */}
           <div className="hidden lg:flex items-center space-x-6">
             <Link className="hover:text-gray-300" to="/">
               Home
@@ -93,6 +116,66 @@ const Navbar = () => {
             )}
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="lg:hidden bg-gray-800 text-white p-4 space-y-4">
+            <Link className="block hover:text-gray-300 pb-2" to="/">
+              Home
+            </Link>
+
+            {localStorage.getItem("token") && (
+              <>
+                <Link className="block hover:text-gray-300 pb-2" to="/form">
+                  Application Form
+                </Link>
+                <Link
+                  className="block hover:text-gray-300 pb-2"
+                  to="/submittedForm"
+                >
+                  Internships Applied
+                </Link>
+              </>
+            )}
+
+            {!localStorage.getItem("token") ? (
+              <div className="flex flex-col space-y-3">
+                <button
+                  type="button"
+                  className="bg-gray-100 text-gray-900 px-4 py-2 rounded-md w-full"
+                  onClick={() => setIsSignupModalOpen(true)}
+                >
+                  Sign Up
+                </button>
+
+                <button
+                  type="button"
+                  className="bg-gray-100 text-gray-900 px-4 py-2 rounded-md w-full"
+                  onClick={() => setIsLoginModalOpen(true)}
+                >
+                  Login
+                </button>
+
+                <Link to="/companyLogin" className="w-full">
+                  <button
+                    type="button"
+                    className="bg-gray-100 text-gray-900 px-4 py-2 rounded-md w-full"
+                  >
+                    Company Login
+                  </button>
+                </Link>
+              </div>
+            ) : (
+              <button
+                onClick={handleLogout}
+                type="button"
+                className="bg-gray-100 text-gray-900 px-4 py-2 rounded-md w-full"
+              >
+                Logout
+              </button>
+            )}
+          </div>
+        )}
       </nav>
 
       {/* Login Modal */}

@@ -40,20 +40,21 @@ export function ParticlesDemo() {
 
   return (
     <div
+      style={{ margin: 0, padding: 0 }}
       className={`relative flex min-h-screen w-full flex-col items-center justify-center 
-                     overflow-hidden rounded-lg border bg-background md:shadow-xl 
+                     overflow-hidden  bg-background md:shadow-xl 
                      ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}
     >
       {/* <Navbar /> */}
 
       <button
         onClick={toggleTheme}
-        className={`absolute top-20 right-4 px-3 py-1 md:px-4 md:py-2 rounded
-        ${
-          theme === "dark"
-            ? "bg-gray-600 text-white hover:bg-gray-700"
-            : "bg-gray-300 text-black hover:bg-gray-400"
-        } transition-colors text-sm md:text-base`}
+        className={`absolute top-4 right-4 sm:top-10 sm:right-10 md:top-0 md:right-4 px-3 py-1 md:px-4 md:py-2 rounded
+  ${
+    theme === "dark"
+      ? "bg-gray-600 text-white hover:bg-gray-700"
+      : "bg-gray-300 text-black hover:bg-gray-400"
+  } transition-colors text-sm md:text-base z-50`}
       >
         {theme === "dark" ? "Light Mode" : "Dark Mode"}
       </button>
