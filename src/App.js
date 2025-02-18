@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import Navbar from "./components/navbar";
+import Navbar from "./components/Navbar";
 import Form from "./components/Form";
 // import Home from "./components/Home";
 import { Routes, Route, BrowserRouter } from "react-router";

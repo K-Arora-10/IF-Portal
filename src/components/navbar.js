@@ -17,12 +17,28 @@ const Navbar = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDashboardOpen, setIsDashboardOpen] = useState(false);
   let navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
+  const toggleDashboard = () => {
+    setIsDashboardOpen(!isDashboardOpen);
+  };
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(".dashboard-dropdown")) {
+        setIsDashboardOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
@@ -53,31 +69,38 @@ const Navbar = () => {
             </Link>
 
             {localStorage.getItem("token") && (
-              <div className="relative group">
-                <button className="flex items-center space-x-1 hover:text-blue-400 transition-colors">
+              <div className="relative dashboard-dropdown">
+                <button
+                  className="flex items-center space-x-1 hover:text-blue-400 transition-colors"
+                  onClick={toggleDashboard}
+                >
                   <span>Dashboard</span>
                   <ChevronDown className="w-4 h-4" />
                 </button>
-                <div className="hidden group-hover:block absolute right-0 bg-white text-gray-900 shadow-xl rounded-lg mt-2 w-48 overflow-hidden transition-all duration-200 ease-in-out">
-                  <ul className="py-1">
-                    <li>
-                      <Link
-                        to="/form"
-                        className="flex px-4 py-2 hover:bg-gray-100 transition-colors"
-                      >
-                        Application Form
-                      </Link>
-                    </li>
-                    <li className="border-t border-gray-200">
-                      <Link
-                        to="/submittedForm"
-                        className="flex px-4 py-2 hover:bg-gray-100 transition-colors"
-                      >
-                        Internships Applied
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
+                {isDashboardOpen && (
+                  <div className="absolute right-0 bg-white text-gray-900 shadow-xl rounded-lg mt-2 w-48 overflow-hidden transition-all duration-200 ease-in-out z-50">
+                    <ul className="py-1">
+                      <li>
+                        <Link
+                          to="/form"
+                          className="flex px-4 py-2 hover:bg-gray-100 transition-colors"
+                          onClick={() => setIsDashboardOpen(false)}
+                        >
+                          Application Form
+                        </Link>
+                      </li>
+                      <li className="border-t border-gray-200">
+                        <Link
+                          to="/submittedForm"
+                          className="flex px-4 py-2 hover:bg-gray-100 transition-colors"
+                          onClick={() => setIsDashboardOpen(false)}
+                        >
+                          Internships Applied
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </div>
             )}
 
