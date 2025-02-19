@@ -256,7 +256,7 @@ const Navbar = () => {
               </button>
             </div>
             <div className="p-4">
-              <Login />
+              <Login onClose={() => setIsLoginModalOpen(false)}/>
             </div>
           </div>
         </div>
@@ -276,7 +276,7 @@ const Navbar = () => {
               </button>
             </div>
             <div className="p-4">
-              <Signup />
+              <Signup onClose={() => setIsSignupModalOpen(false)}/>
             </div>
           </div>
         </div>

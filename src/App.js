@@ -14,6 +14,7 @@ import CompanyHome from "./components/CompanyHome";
 import CompanyNavbar from "./components/CompanyNavbar";
 import ParticlesDemo from "./components/particles";
 import { useEffect,useState } from 'react';
+import { ToastContainer } from "react-toastify";
 
 function App() {
 
@@ -32,6 +33,8 @@ function App() {
 
   return (
     <>
+    <ToastContainer position="top-right" autoClose={2000} />
+    
       <BrowserRouter>
         <Routes>
           <Route

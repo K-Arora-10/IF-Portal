@@ -24,6 +24,7 @@ Router.post(
     success=false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      success=false;
       // Return validation errors
       return res.status(400).json({success:success, errors: errors.array() });
     }
@@ -34,6 +35,7 @@ Router.post(
       // Check if email already exists
       const existingUser = await User.findOne({ email });
       if (existingUser) {
+        success=false;
         return res
           .status(400)
           .json({success : success, error: 'A user with this email already exists.' });
@@ -58,11 +60,12 @@ Router.post(
         }
       }
       const authtoken = jwt.sign(data,JWT_secret);
-      res.json({sucess:sucess,authtoken});
+      res.json({success:success,authtoken});
 
     } catch (err) {
       console.error(err.message);
-      res.status(500).json({ error: 'Server error, please try again later.' });
+      success=false;
+      res.status(500).json({success:success, error: 'Server error, please try again later.' });
     }
   }
 );

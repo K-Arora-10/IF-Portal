@@ -1,6 +1,9 @@
 import React,{useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { Building, Mail, Lock, LogIn } from "lucide-react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const CompanyLogin = () => {
   let navigate = useNavigate();
@@ -28,7 +31,7 @@ const CompanyLogin = () => {
       const json = await response.json();
 
       if (json.success) {
-        alert("Login Successful");
+        toast.success("Login Successful");
         localStorage.setItem("token", json.authtoken);
         localStorage.setItem("userRole", "company");
         
@@ -40,7 +43,7 @@ const CompanyLogin = () => {
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("Login failed. Please try again.");
+      toast.error("Login failed. Please try again.");
     }
   };
 

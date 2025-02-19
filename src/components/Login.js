@@ -1,6 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Mail, Lock, LogIn, X } from "lucide-react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Login = ({ onClose }) => {
   const navigate = useNavigate();
@@ -24,7 +27,7 @@ const Login = ({ onClose }) => {
       const json = await response.json();
 
       if (json.success) {
-        alert("Login Successful");
+        toast.success("Login Successful");
         localStorage.setItem("token", json.authtoken);
         localStorage.setItem("userRole", "student");
 
@@ -32,11 +35,19 @@ const Login = ({ onClose }) => {
           window.dispatchEvent(new Event("storage")); // 🔄 Force update in App.js
           navigate("/", { replace: true });
         }, 100);
-        if (onClose) onClose(); // Close the modal after successful login
+        if (onClose) {
+          setTimeout(() => {
+            onClose(); // Close modal after login
+          }, 100);
+        }
+        
+      }
+      else{
+        toast.error(json.error)
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("Login failed. Please try again.");
+      toast.error("Login failed. Please try again.");
     }
   };
 

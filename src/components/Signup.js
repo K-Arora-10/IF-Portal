@@ -1,5 +1,6 @@
 import React from "react";
 import { UserPlus, Mail, Lock, User, X } from "lucide-react";
+import { toast } from "react-toastify";
 
 const Signup = ({ onClose }) => {
   const handleSubmit = async (e) => {
@@ -21,12 +22,20 @@ const Signup = ({ onClose }) => {
       });
       const json = await response.json();
       if (json.success) {
-        alert("SignUp Successful");
-        if (onClose) onClose(); // Close the modal after successful signup
+        toast.success("SignUp Successful");
+        if (onClose) {
+          setTimeout(() => {
+            onClose(); // Close modal after login
+          }, 100);
+        }
+        
+      }
+      else{
+        toast.error(json.error)
       }
     } catch (error) {
       console.error("Signup error:", error);
-      alert("Signup failed. Please try again.");
+      toast.error("Signup failed. Please try again.");
     }
   };
 
