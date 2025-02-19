@@ -1,10 +1,9 @@
 import React from 'react'
+import ParticlesDemo from './particles'
 
 const CompanyHome = () => {
   return (
-    <div>
-      <center>I am Home</center>
-    </div>
+    <ParticlesDemo/>
   )
 }
 

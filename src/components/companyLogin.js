@@ -1,9 +1,10 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { Building, Mail, Lock, LogIn } from "lucide-react";
 
 const CompanyLogin = () => {
   let navigate = useNavigate();
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +30,13 @@ const CompanyLogin = () => {
       if (json.success) {
         alert("Login Successful");
         localStorage.setItem("token", json.authtoken);
-        navigate("/companyHome");
+        localStorage.setItem("userRole", "company");
+        
+
+        setTimeout(() => {
+          window.dispatchEvent(new Event("storage")); // 🔄 Force update in App.js
+          navigate("/companyHome", { replace: true });
+        }, 100);
       }
     } catch (error) {
       console.error("Login error:", error);

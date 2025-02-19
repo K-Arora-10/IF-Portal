@@ -22,7 +22,15 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/");
+    localStorage.removeItem("userRole");
+  
+    // ✅ Dispatch storage event to update userRole in App.js
+    window.dispatchEvent(new Event("storage"));
+  
+    // ✅ Use setTimeout to ensure the state updates before redirection
+    setTimeout(() => {
+      navigate("/");
+    }, 100);
   };
   const toggleDashboard = () => {
     setIsDashboardOpen(!isDashboardOpen);

@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from "react";
 import CompanyFormsCard from "./CompanyFormsCard";
+import SubmittedFormsCard from "./SubmittedFormsCard";
 
 const CompanyForms = () => {
   const [forms, setForms] = useState([]);
@@ -41,13 +42,32 @@ const CompanyForms = () => {
 
   return (
     <>
-      <div className="container mt-4">
-        <button type="button" class="btn btn-primary">
-          Total Application <span class="badge text-bg-secondary">{forms.length}</span>
-        </button>
+      <div className="container mx-auto p-6">
+      {/* Page Title */}
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Received Applications</h2>
 
-        {forms.map((form, index) => (
-          <CompanyFormsCard
+      {/* Loading Indicator */}
+      {loading && (
+        <p className="text-center text-gray-500 animate-pulse text-lg">Loading...</p>
+      )}
+
+      {/* Error Message */}
+      {error && (
+        <p className="text-center text-red-600 font-semibold bg-red-100 p-3 rounded-lg">
+          Error: {error}
+        </p>
+      )}
+
+      {/* No Forms Found */}
+      {!loading && !error && forms.length === 0 && (
+        <p className="text-center text-gray-500 text-lg">No submitted forms found.</p>
+      )}
+
+      {/* Forms Grid */}
+      {!loading && !error && forms.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+          {forms.map((form, index) => (
+            <CompanyFormsCard
             key={index}
             company={form.name}
             roll={form.roll}
@@ -56,8 +76,10 @@ const CompanyForms = () => {
             role={form.role}
             resume={form.resume}
           />
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
+    </div>
     </>
   );
 };

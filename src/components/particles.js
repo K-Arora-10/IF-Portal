@@ -5,7 +5,7 @@ import { Particles } from "./ui/particles-ui";
 import ifblack from "../Photos/IF black (1).png";
 import ifwhite from "../Photos/IF White (1).png";
 import Footer from "./footer";
-// import Navbar from "./Navbar";
+
 import Button from "./button";
 export function ParticlesDemo() {
   const navigate = useNavigate();
@@ -45,7 +45,6 @@ export function ParticlesDemo() {
                      overflow-hidden  bg-background md:shadow-xl 
                      ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}
     >
-      {/* <Navbar /> */}
 
       <button
         onClick={toggleTheme}

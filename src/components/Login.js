@@ -26,7 +26,12 @@ const Login = ({ onClose }) => {
       if (json.success) {
         alert("Login Successful");
         localStorage.setItem("token", json.authtoken);
-        navigate("/");
+        localStorage.setItem("userRole", "student");
+
+        setTimeout(() => {
+          window.dispatchEvent(new Event("storage")); // 🔄 Force update in App.js
+          navigate("/", { replace: true });
+        }, 100);
         if (onClose) onClose(); // Close the modal after successful login
       }
     } catch (error) {
