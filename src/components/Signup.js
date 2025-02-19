@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { UserPlus, Mail, Lock, User, X } from "lucide-react";
 import { toast } from "react-toastify";
 
 const Signup = ({ onClose }) => {
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const password = e.target.password.value;
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match!");
+      return;
+    }
 
     const formData = {
       name: e.target.name.value,
       email: e.target.email.value,
-      password: e.target.password.value,
+      password,
     };
 
     try {
@@ -25,13 +33,11 @@ const Signup = ({ onClose }) => {
         toast.success("SignUp Successful");
         if (onClose) {
           setTimeout(() => {
-            onClose(); // Close modal after login
+            onClose(); // Close modal after signup
           }, 100);
         }
-        
-      }
-      else{
-        toast.error(json.error)
+      } else {
+        toast.error(json.error);
       }
     } catch (error) {
       console.error("Signup error:", error);
@@ -72,8 +78,8 @@ const Signup = ({ onClose }) => {
             type="text"
             id="name"
             name="name"
-            placeholder="John Doe"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+            placeholder="Name"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             required
           />
         </div>
@@ -91,7 +97,7 @@ const Signup = ({ onClose }) => {
             id="email"
             name="email"
             placeholder="name@example.com"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             required
           />
         </div>
@@ -102,21 +108,42 @@ const Signup = ({ onClose }) => {
             className="flex items-center gap-2 text-sm font-medium text-gray-700"
           >
             <Lock className="w-4 h-4" />
-            Create Password
+            Create Password (At least 6 characters)
           </label>
           <input
             type="password"
             id="password"
             name="password"
             placeholder="Create a strong password"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            minLength="6"
             required
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label
+            htmlFor="confirm-password"
+            className="flex items-center gap-2 text-sm font-medium text-gray-700"
+          >
+            <Lock className="w-4 h-4" />
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirmPassword"
+            placeholder="Re-enter password"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            minLength="6"
+            required
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
 
         <button
           type="submit"
-          className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200"
+          className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition"
         >
           <UserPlus className="w-4 h-4" />
           Create Account
