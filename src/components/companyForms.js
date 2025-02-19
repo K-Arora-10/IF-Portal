@@ -46,6 +46,16 @@ const CompanyForms = () => {
       {/* Page Title */}
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Received Applications</h2>
 
+
+      <div className="mb-8 p-6 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg shadow-lg">
+        <div className="text-center text-white">
+          <p className="text-lg font-medium mb-2">Total Applications Received</p>
+          <div className="text-5xl font-bold">{forms.length}</div>
+        </div>
+      </div>
+
+      
+
       {/* Loading Indicator */}
       {loading && (
         <p className="text-center text-gray-500 animate-pulse text-lg">Loading...</p>

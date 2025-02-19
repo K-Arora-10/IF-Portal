@@ -92,14 +92,14 @@ export function ParticlesDemo() {
         Submit your resume, find internship opportunities, and connect with top
         companies
       </span>
-      <Button
+      {/* <Button
         theme="dark"
         size="xl"
         onClick={() => navigate("/submit-page")}
         className="mt-10"
       >
         Submit Resume
-      </Button>
+      </Button> */}
       {/* <Button theme="dark" size="xl" onClick={() => alert("Button clicked!")}>
                 Click Me
             </Button> */}
