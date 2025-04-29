@@ -9,7 +9,7 @@ const SubmittedForms = () => {
   useEffect(() => {
     const fetchForms = async () => {
       try {
-        const response = await fetch("http://localhost:2000/form/getAllFilledForms", {
+        const response = await fetch("https://if-portal-backend.onrender.com/form/getAllFilledForms", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

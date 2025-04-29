@@ -11,7 +11,7 @@ const CompanyForms = () => {
     const fetchForms = async () => {
       try {
         const response = await fetch(
-          "http://localhost:2000/form/getAllForms",
+          "https://if-portal-backend.onrender.com/form/getAllForms",
           {
             method: "GET",
             headers: {

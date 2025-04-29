@@ -21,7 +21,7 @@ const Signup = ({ onClose }) => {
     };
 
     try {
-      const response = await fetch("http://localhost:2000/auth/createUser", {
+      const response = await fetch("https://if-portal-backend.onrender.com/auth/createUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

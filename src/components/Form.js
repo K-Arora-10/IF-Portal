@@ -119,7 +119,7 @@ const Form = () => {
           return;
         }
 
-        const response = await fetch("http://localhost:2000/auth/getuser", {
+        const response = await fetch("https://if-portal-backend.onrender.com/auth/getuser", {
           method: "POST",
           headers: { "auth-token": token },
         });
@@ -200,7 +200,7 @@ const Form = () => {
         email: userDetails.email,
       };
 
-      const response = await fetch("http://localhost:2000/form/fillForm", {
+      const response = await fetch("https://if-portal-backend.onrender.com/form/fillForm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submissionData),

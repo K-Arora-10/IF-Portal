@@ -19,7 +19,7 @@ const CompanyLogin = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:2000/authCompany/companyLogin",
+        "https://if-portal-backend.onrender.com/authCompany/companyLogin",
         {
           method: "POST",
           headers: {
