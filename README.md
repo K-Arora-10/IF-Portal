@@ -31,5 +31,5 @@ An internship application platform built for **Thapar Venture Club (TVC), TIET**
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/K-Arora-10/IF-Portal.git
-   cd IF-Portal
+   git clone https://github.com/K-Arora-10/IF-Portal-Frontend.git
+   cd IF-Portal-Frontend
